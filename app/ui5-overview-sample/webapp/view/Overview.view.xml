@@ -1,0 +1,172 @@
+<mvc:View
+	controllerName="ui5overviewsample.controller.Overview"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:fcard="sap.f.cards"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:vizData="sap.viz.ui5.data">
+
+	<Page id="overviewPage" showHeader="true" title="{i18n>appTitle}">
+		<content>
+			<f:GridContainer snapToRow="true" allowDenseFill="true">
+				<f:layout>
+					<f:GridContainerSettings rowSize="5rem" columnSize="5rem" gap="1rem"/>
+				</f:layout>
+
+				<!-- 1. KPI total gross -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="3" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:NumericHeader
+							title="{i18n>cardKpiTitle}"
+							subtitle="{i18n>cardKpiSubtitle}"
+							number="{ path: 'ovp>/kpi/totalGross', formatter: '.toFixed' }"
+							scale="{ovp>/kpi/currency}"
+							trend="Up"
+							state="Good"/>
+					</f:header>
+				</f:Card>
+
+				<!-- 2. List card: Top 5 orders -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="6" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardTopOrdersTitle}" subtitle="{i18n>cardTopOrdersSubtitle}"/>
+					</f:header>
+					<f:content>
+						<List
+							items="{ovp>/topOrders}"
+							mode="SingleSelectMaster"
+							itemPress=".onTopOrderPress">
+							<StandardListItem
+								type="Active"
+								title="{ovp>orderNo}"
+								description="{ovp>customerName}"
+								info="{ovp>grossAmount} {ovp>currency_code}"
+								infoState="Information"/>
+						</List>
+					</f:content>
+				</f:Card>
+
+				<!-- 3. Column chart: gross by status -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="6" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardByStatusTitle}" subtitle="{i18n>cardByStatusSubtitle}"/>
+					</f:header>
+					<f:content>
+						<viz:VizFrame
+							width="100%"
+							height="240px"
+							uiConfig="{applicationSet:'fiori'}"
+							vizType="column">
+							<viz:dataset>
+								<vizData:FlattenedDataset data="{ovp>/byStatus}">
+									<vizData:dimensions>
+										<vizData:DimensionDefinition name="Status" value="{ovp>dim}"/>
+									</vizData:dimensions>
+									<vizData:measures>
+										<vizData:MeasureDefinition name="Gross" value="{ovp>value}"/>
+									</vizData:measures>
+								</vizData:FlattenedDataset>
+							</viz:dataset>
+						</viz:VizFrame>
+					</f:content>
+				</f:Card>
+
+				<!-- 4. Donut chart: gross by country -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="6" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardByCountryTitle}" subtitle="{i18n>cardByCountrySubtitle}"/>
+					</f:header>
+					<f:content>
+						<viz:VizFrame
+							width="100%"
+							height="240px"
+							uiConfig="{applicationSet:'fiori'}"
+							vizType="donut">
+							<viz:dataset>
+								<vizData:FlattenedDataset data="{ovp>/byCountry}">
+									<vizData:dimensions>
+										<vizData:DimensionDefinition name="Country" value="{ovp>dim}"/>
+									</vizData:dimensions>
+									<vizData:measures>
+										<vizData:MeasureDefinition name="Gross" value="{ovp>value}"/>
+									</vizData:measures>
+								</vizData:FlattenedDataset>
+							</viz:dataset>
+						</viz:VizFrame>
+					</f:content>
+				</f:Card>
+
+				<!-- 5. Low stock products list -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="6" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardLowStockTitle}" subtitle="{i18n>cardLowStockSubtitle}"/>
+					</f:header>
+					<f:content>
+						<List items="{ovp>/lowStockProducts}">
+							<StandardListItem
+								title="{ovp>name}"
+								description="Stock: {ovp>stock}"
+								info="{= ${ovp>stockCriticality} === 1 ? 'Critical' : ${ovp>stockCriticality} === 2 ? 'Low' : 'OK' }"
+								infoState="{= ${ovp>stockCriticality} === 1 ? 'Error' : ${ovp>stockCriticality} === 2 ? 'Warning' : 'Success' }"/>
+						</List>
+					</f:content>
+				</f:Card>
+
+				<!-- 6. Selected order quick view -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="3" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardSelectedTitle}" subtitle="{i18n>cardSelectedSubtitle}"/>
+					</f:header>
+					<f:content>
+						<l:VerticalLayout class="sapUiSmallMargin" width="100%">
+							<ObjectAttribute title="Order" text="{ovp>/selected/orderNo}"/>
+							<ObjectAttribute title="Customer" text="{ovp>/selected/customerName}"/>
+							<ObjectAttribute title="Status" text="{ovp>/selected/status}"/>
+							<ObjectNumber number="{ovp>/selected/grossAmount}" unit="{ovp>/selected/currency}"/>
+						</l:VerticalLayout>
+					</f:content>
+				</f:Card>
+
+				<!-- 7. Static links card -->
+				<f:Card width="100%" height="100%">
+					<f:layoutData>
+						<f:GridContainerItemLayoutData minRows="3" columns="4"/>
+					</f:layoutData>
+					<f:header>
+						<fcard:Header title="{i18n>cardLinksTitle}" subtitle="{i18n>cardLinksSubtitle}"/>
+					</f:header>
+					<f:content>
+						<l:VerticalLayout class="sapUiSmallMargin" width="100%">
+							<Link text="SAP UI5 Documentation" href="https://sapui5.hana.ondemand.com" target="_blank"/>
+							<Link text="CAP Documentation" href="https://cap.cloud.sap" target="_blank"/>
+							<Link text="SAP Build Code" href="https://www.sap.com/products/technology-platform/build-code.html" target="_blank"/>
+						</l:VerticalLayout>
+					</f:content>
+				</f:Card>
+
+			</f:GridContainer>
+		</content>
+	</Page>
+</mvc:View>

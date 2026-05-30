@@ -1,0 +1,19 @@
+ID;locale;name;descr
+HW;de;Hardware;Physische Produkte und Geräte
+HW;fr;Matériel;Produits et équipements physiques
+HW;ja;ハードウェア;物理的な製品およびデバイス
+SW;de;Software;Softwareprodukte und Lizenzen
+SW;fr;Logiciels;Produits et licences logiciels
+SW;ja;ソフトウェア;ソフトウェア製品とライセンス
+SVC;de;Dienstleistungen;Professionelle und verwaltete Services
+SVC;fr;Services;Services professionnels et gérés
+SVC;ja;サービス;プロフェッショナル/マネージドサービス
+HW-SENS;de;Sensoren;Industrielle Sensoren und Detektoren
+HW-SENS;fr;Capteurs;Capteurs et détecteurs industriels
+HW-SENS;ja;センサー;産業用センサーと検出器
+HW-PUMP;de;Pumpen & Hydraulik;Pumpen und Hydraulikausrüstung
+HW-PUMP;fr;Pompes & hydraulique;Pompes et équipements hydrauliques
+SW-ERP;de;ERP-Module;ERP-Add-on-Lizenzen
+SW-ERP;fr;Modules ERP;Licences additionnelles ERP
+SW-ANAL;de;Analytik;Analyse- und Reporting-Tools
+SW-ANAL;fr;Analytique;Outils d'analyse et de reporting

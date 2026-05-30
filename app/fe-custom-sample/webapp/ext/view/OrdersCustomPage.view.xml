@@ -1,0 +1,55 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:macros="sap.fe.macros"
+    xmlns:core="sap.ui.core"
+    controllerName="fecustomsample.ext.view.OrdersCustomPage">
+    <Page
+        id="ordersCustomPage"
+        title="{i18n>ordersTableTitle}"
+        showHeader="true">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Toolbar id="customToolbar">
+                    <SearchField
+                        id="searchField"
+                        width="20rem"
+                        placeholder="{i18n>searchPlaceholder}"
+                        search=".onSearch"/>
+                    <ToolbarSpacer/>
+                    <Button
+                        id="refreshButton"
+                        text="{i18n>refreshBtn}"
+                        icon="sap-icon://refresh"
+                        press=".onRefresh"/>
+                </Toolbar>
+                <Table
+                    id="ordersTable"
+                    items="{path: '/SalesOrders', parameters: {$count: true, $expand: 'customer,salesOrg,currency'}}"
+                    growing="true"
+                    growingThreshold="20"
+                    mode="SingleSelectMaster"
+                    itemPress=".onItemPress">
+                    <columns>
+                        <Column><Text text="Order No."/></Column>
+                        <Column><Text text="Customer"/></Column>
+                        <Column><Text text="Status"/></Column>
+                        <Column hAlign="End"><Text text="Gross Amount"/></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Active">
+                            <cells>
+                                <ObjectIdentifier title="{orderNo}" text="{path: 'orderDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'}}"/>
+                                <Text text="{customer/name}"/>
+                                <ObjectStatus text="{status}" state="{= ${status} === 'Cancelled' ? 'Error' : (${status} === 'New' || ${status} === 'InProgress' ? 'Warning' : 'Success')}"/>
+                                <ObjectNumber
+                                    number="{path: 'grossAmount', formatter: '.formatAmount'}"
+                                    unit="{currency/code}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -2,14 +2,15 @@
   "name": "cap-sample",
   "version": "1.0.0",
   "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.15.12",
     "@sap/cds": "^9"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2.4",
     "@sap/cds-dk": "^9",
     "cds-plugin-ui5": "^0.13.0",
-    "rimraf": "^5.0.5",
-    "mbt": "^1.2.49"
+    "mbt": "^1.2.49",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "cds-serve",
@@ -17,7 +18,20 @@
     "undeploy": "cf undeploy cap-sample --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-fe-worklist-sample": "cds watch --open feworklistsample/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-fe-worklist-sample": "cds watch --open feworklistsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-fe-alp-sample": "cds watch --open fealpsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-fe-lrop-sample": "cds watch --open felropsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-fe-objectpage-sample": "cds watch --open feobjectpagesample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-fe-custom-sample": "cds watch --open fecustomsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ui5-lrop-sample": "cds watch --open ui5lropsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ui5-objectpage-sample": "cds watch --open ui5objectpagesample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ui5-custom-sample": "cds watch --open ui5customsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ui5-alp-sample": "cds watch --open ui5alpsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ui5-overview-sample": "cds watch --open ui5overviewsample/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manage-orders": "cds watch --open manage-orders/webapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manage-customers": "cds watch --open manage-customers/webapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-browse-orders": "cds watch --open browse-orders/webapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-product-categories": "cds watch --open product-categories/webapp/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {
@@ -26,10 +40,33 @@
     }
   },
   "workspaces": [
-    "app/*"
+    "app/manage-orders",
+    "app/manage-customers",
+    "app/browse-orders",
+    "app/product-categories",
+    "app/fe-overview-sample",
+    "app/fe-worklist-sample",
+    "app/fe-alp-sample",
+    "app/fe-lrop-sample",
+    "app/fe-objectpage-sample",
+    "app/fe-custom-sample",
+    "app/ui5-lrop-sample",
+    "app/ui5-objectpage-sample",
+    "app/ui5-custom-sample",
+    "app/ui5-alp-sample",
+    "app/ui5-overview-sample"
   ],
   "sapux": [
     "app/fe-overview-sample",
-    "app/fe-worklist-sample"
+    "app/fe-worklist-sample",
+    "app/fe-alp-sample",
+    "app/fe-lrop-sample",
+    "app/fe-objectpage-sample",
+    "app/fe-custom-sample",
+    "app/ui5-lrop-sample",
+    "app/ui5-objectpage-sample",
+    "app/ui5-custom-sample",
+    "app/ui5-alp-sample",
+    "app/ui5-overview-sample"
   ]
 }

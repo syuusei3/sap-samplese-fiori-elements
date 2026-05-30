@@ -1,0 +1,130 @@
+{
+  "_version": "1.28.0",
+  "sap.app": {
+    "id": "cap-sample.manage-customers",
+    "type": "application",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "AdminService": {
+        "uri": "odata/v4/admin/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Customer-manage": {
+          "signature": {
+            "parameters": {
+              "SalesOrders.customer.ID": {
+                "renameTo": "ID"
+              }
+            },
+            "additionalParameters": "ignored"
+          },
+          "semanticObject": "Customer",
+          "action": "manage",
+          "title": "{{appTitle}}",
+          "info": "{{appDescription}}",
+          "subTitle": "{{appSubTitle}}",
+          "icon": "sap-icon://customer",
+          "indicatorDataSource": {
+            "dataSource": "AdminService",
+            "path": "Customers/$count",
+            "refresh": 1800
+          }
+        }
+      }
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.136.0",
+      "libs": {
+        "sap.fe.templates": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      },
+      "": {
+        "dataSource": "AdminService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CustomersList",
+          "target": "CustomersList"
+        },
+        {
+          "pattern": "Customers({key}):?query:",
+          "name": "CustomersDetails",
+          "target": "CustomersDetails"
+        }
+      ],
+      "targets": {
+        "CustomersList": {
+          "type": "Component",
+          "id": "CustomersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Customers",
+              "liveMode": true,
+              "navigation": {
+                "Customers": {
+                  "detail": {
+                    "route": "CustomersDetails"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CustomersDetails": {
+          "type": "Component",
+          "id": "CustomersDetailsList",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Customers"
+            }
+          }
+        }
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

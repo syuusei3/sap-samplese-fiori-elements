@@ -17,11 +17,11 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/catalog/",
+        "uri": "/odata/v2/catalog-overview/",
         "type": "OData",
         "settings": {
           "annotations": [],
-          "odataVersion": "4.0"
+          "odataVersion": "2.0"
         }
       }
     }
@@ -43,15 +43,13 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.148.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {},
         "sap.ovp": {},
-        "sap.ui.rta": {},
         "sap.ui.layout": {}
       }
     },
@@ -68,11 +66,10 @@
       },
       "mainModel": {
         "dataSource": "mainService",
-        "preload": true,
         "settings": {
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "useBatch": true
         }
       },
       "@i18n": {
@@ -91,20 +88,147 @@
   },
   "sap.ovp": {
     "globalFilterModel": "mainModel",
-    "globalFilterEntitySet": "ListOfBooks",
+    "globalFilterEntitySet": "ListOfOrders",
     "containerLayout": "resizable",
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
-    "cards": {},
-    "globalFilterControlType": "MacroFilterBar"
+    "cards": {
+      "card_OpenOrdersList": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "{{openOrdersTitle}}",
+          "subTitle": "{{openOrdersSubTitle}}",
+          "category": "{{openOrdersCategory}}",
+          "entitySet": "ListOfOrders",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOpenOrders",
+          "listType": "extended",
+          "listFlavor": "standard"
+        }
+      },
+      "card_RevenueChart": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "{{revenueChartTitle}}",
+          "subTitle": "{{revenueChartSubTitle}}",
+          "category": "{{revenueChartCategory}}",
+          "entitySet": "ListOfOrders",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#revenueChart",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvRevenueChart"
+        }
+      },
+      "card_OrdersByStatus": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "{{ordersByStatusTitle}}",
+          "subTitle": "{{ordersByStatusSubTitle}}",
+          "category": "{{ordersByStatusCategory}}",
+          "entitySet": "ListOfOrders",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ordersByStatus",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOrdersByStatus"
+        }
+      },
+      "card_StockDonut": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "{{stockDonutTitle}}",
+          "subTitle": "{{stockDonutSubTitle}}",
+          "category": "{{stockDonutCategory}}",
+          "entitySet": "Products",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#stockDonut",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvStockDonut"
+        }
+      },
+      "card_OpenOrderKPI": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "{{kpiTitle}}",
+          "subTitle": "{{kpiSubTitle}}",
+          "category": "{{kpiCategory}}",
+          "entitySet": "ListOfOrders",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#revenueChart",
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#openOrdersKPI"
+        }
+      },
+      "card_StaticLinks": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.linklist",
+        "settings": {
+          "title": "{{linksTitle}}",
+          "subTitle": "{{linksSubTitle}}",
+          "category": "{{linksCategory}}",
+          "listFlavor": "standard",
+          "defaultSpan": {
+            "rows": 12,
+            "cols": 1,
+            "showOnlyHeader": false
+          },
+          "staticContent": [
+            {
+              "title": "{{linkSAP}}",
+              "subTitle": "help.sap.com",
+              "imageUri": "sap-icon://sap-logo-shape",
+              "imageAltText": "SAP",
+              "targetUri": "https://help.sap.com",
+              "openInNewWindow": true
+            },
+            {
+              "title": "{{linkCAP}}",
+              "subTitle": "cap.cloud.sap",
+              "imageUri": "sap-icon://syringe",
+              "imageAltText": "CAP",
+              "targetUri": "https://cap.cloud.sap",
+              "openInNewWindow": true
+            },
+            {
+              "title": "{{linkUI5}}",
+              "subTitle": "sapui5.hana.ondemand.com",
+              "imageUri": "sap-icon://palette",
+              "imageAltText": "UI5",
+              "targetUri": "https://sapui5.hana.ondemand.com",
+              "openInNewWindow": true
+            }
+          ]
+        }
+      },
+      "card_TopCustomersStack": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.stack",
+        "settings": {
+          "title": "{{topCustomersTitle}}",
+          "subTitle": "{{topCustomersSubTitle}}",
+          "category": "{{topCustomersCategory}}",
+          "entitySet": "Customers",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvCustomerList",
+          "objectStreamCardsNavigationProperty": "",
+          "defaultSpan": {
+            "rows": 12,
+            "cols": 1
+          }
+        }
+      },
+      "card_ProductQuickView": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "{{productQuickViewTitle}}",
+          "subTitle": "{{productQuickViewSubTitle}}",
+          "category": "{{productQuickViewCategory}}",
+          "entitySet": "Products",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvProductList",
+          "listType": "extended",
+          "listFlavor": "standard"
+        }
+      }
+    }
   },
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "analytical"
-  },
-  "sap.fe": {
-    "app": {
-      "enableLazyLoading": true
-    }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "fe-objectpage-sample",
+  "version": "0.0.1",
+  "description": "SAP Fiori Elements - Object Page (single entity) sample.",
+  "keywords": ["ui5", "openui5", "sapui5", "fiori-elements", "objectpage"],
+  "main": "webapp/index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "@ui5/cli": "^4.0.33",
+    "@sap/ux-ui5-tooling": "1"
+  },
+  "scripts": {
+    "start": "ui5 serve --config=ui5.yaml --open index.html",
+    "build": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo"
+  }
+}

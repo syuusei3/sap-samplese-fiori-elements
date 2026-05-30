@@ -9,21 +9,21 @@ sap.ui.define([
 
         opaTest("Start application", function (Given, When, Then) {
             Given.iStartMyApp();
-            Then.onTheListOfBooksList.iSeeThisPage();
+            Then.onTheListOfOrdersList.iSeeThisPage();
         });
 
 
         opaTest("Navigate to ObjectPage", function (Given, When, Then) {
             // Note: this test will fail if the ListReport page doesn't show any data
-            
-            Then.onTheListOfBooksList.onTable().iCheckRows();
 
-            When.onTheListOfBooksList.onTable().iPressRow(0);
-            Then.onTheListOfBooksObjectPage.iSeeThisPage();
+            Then.onTheListOfOrdersList.onTable().iCheckRows();
+
+            When.onTheListOfOrdersList.onTable().iPressRow(0);
+            Then.onTheListOfOrdersObjectPage.iSeeThisPage();
 
         });
 
-        opaTest("Teardown", function (Given, When, Then) { 
+        opaTest("Teardown", function (Given, When, Then) {
             // Cleanup
             Given.iTearDownMyApp();
         });

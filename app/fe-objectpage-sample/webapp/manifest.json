@@ -1,0 +1,108 @@
+{
+  "_version": "1.85.0",
+  "sap.app": {
+    "id": "feobjectpagesample",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": { "version": "0.0.1" },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:objectpage",
+      "version": "1.25.0",
+      "toolsId": "objectpage-sample-0001"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "SalesOrder-display": {
+          "semanticObject": "SalesOrder",
+          "action": "display",
+          "signature": {
+            "parameters": {
+              "ID": { "required": true }
+            },
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog-objectpage/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": { "icon": "", "favIcon": "" },
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": { "compact": true, "cozy": true },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": { "bundleName": "feobjectpagesample.i18n.i18n" }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": { "css": [] },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": "SalesOrders({key}):?query:",
+          "name": "SalesOrdersObjectPage",
+          "target": "SalesOrdersObjectPage"
+        }
+      ],
+      "targets": {
+        "SalesOrdersObjectPage": {
+          "type": "Component",
+          "id": "SalesOrdersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/SalesOrders"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": { "enableLazyLoading": true }
+  }
+}

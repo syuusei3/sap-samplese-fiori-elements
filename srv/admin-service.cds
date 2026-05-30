@@ -1,7 +1,10 @@
-using {sap.capire.bookshop as my} from '../db/schema';
+using {sap.capire.salesorders as my} from '../db/schema';
 
 service AdminService {
-  entity Authors as projection on my.Authors;
-  entity Books   as projection on my.Books;
-  entity Genres  as projection on my.Genres;
+  entity SalesOrders       as projection on my.SalesOrders;
+  entity SalesOrderItems   as projection on my.SalesOrderItems;
+  entity Customers         as projection on my.Customers;
+  entity Products          as projection on my.Products;
+  entity ProductCategories as projection on my.ProductCategories;
+  entity SalesOrgs         as projection on my.SalesOrgs;
 }

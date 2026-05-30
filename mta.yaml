@@ -1,6 +1,6 @@
 _schema-version: 3.3.0
 ID: cap-sample
-description: A simple CAP project.
+description: A simple CAP project (Sales Order / Inventory domain).
 version: 1.0.0
 modules:
 - name: cap-sample-srv
@@ -55,20 +55,20 @@ modules:
     build-result: app/
     requires:
     - artifacts:
-      - admin-authors.zip
-      name: capsampleadminauthors
+      - manage-customers.zip
+      name: capsamplemanagecustomers
       target-path: app/
     - artifacts:
-      - admin-books.zip
-      name: capsampleadminbooks
+      - manage-orders.zip
+      name: capsamplemanageorders
       target-path: app/
     - artifacts:
-      - browse.zip
-      name: capsamplebrowse
+      - browse-orders.zip
+      name: capsamplebrowseorders
       target-path: app/
     - artifacts:
-      - genres.zip
-      name: capsamplegenres
+      - product-categories.zip
+      name: capsampleproductcategories
       target-path: app/
     - artifacts:
       - feoverviewsample.zip
@@ -78,9 +78,9 @@ modules:
       - feworklistsample.zip
       name: feworklistsample
       target-path: app/
-- name: capsampleadminauthors
+- name: capsamplemanagecustomers
   type: html5
-  path: app/admin-authors
+  path: app/manage-customers
   build-parameters:
     build-result: dist
     builder: custom
@@ -88,9 +88,9 @@ modules:
     - npm ci
     - npm run build
     supported-platforms: []
-- name: capsampleadminbooks
+- name: capsamplemanageorders
   type: html5
-  path: app/admin-books
+  path: app/manage-orders
   build-parameters:
     build-result: dist
     builder: custom
@@ -98,9 +98,9 @@ modules:
     - npm ci
     - npm run build
     supported-platforms: []
-- name: capsamplebrowse
+- name: capsamplebrowseorders
   type: html5
-  path: app/browse
+  path: app/browse-orders
   build-parameters:
     build-result: dist
     builder: custom
@@ -108,9 +108,9 @@ modules:
     - npm ci
     - npm run build
     supported-platforms: []
-- name: capsamplegenres
+- name: capsampleproductcategories
   type: html5
-  path: app/genres
+  path: app/product-categories
   build-parameters:
     build-result: dist
     builder: custom

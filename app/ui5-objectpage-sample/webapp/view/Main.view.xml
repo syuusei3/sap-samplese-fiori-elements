@@ -1,0 +1,18 @@
+<mvc:View
+	controllerName="ui5objectpagesample.controller.Main"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+	<Page id="mainPage" title="{i18n>appTitle}" showHeader="true">
+		<content>
+			<MessageStrip
+				class="sapUiMediumMargin"
+				type="Information"
+				text="{i18n>loadingMessage}"
+				showIcon="true"/>
+			<BusyIndicator class="sapUiMediumMargin" size="2rem"/>
+		</content>
+	</Page>
+
+</mvc:View>

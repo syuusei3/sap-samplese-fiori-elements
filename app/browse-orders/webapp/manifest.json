@@ -1,0 +1,133 @@
+{
+  "_version": "1.28.0",
+  "sap.app": {
+    "id": "cap-sample.browse-orders",
+    "type": "application",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "CatalogService": {
+        "uri": "odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "SalesOrder-display": {
+          "signature": {
+            "parameters": {
+              "SalesOrders.ID": {
+                "renameTo": "ID"
+              },
+              "Customers.orders.ID": {
+                "renameTo": "ID"
+              }
+            },
+            "additionalParameters": "ignored"
+          },
+          "semanticObject": "SalesOrder",
+          "action": "display",
+          "title": "{{appTitle}}",
+          "info": "{{appDescription}}",
+          "subTitle": "{{appSubTitle}}",
+          "icon": "sap-icon://sales-order",
+          "indicatorDataSource": {
+            "dataSource": "CatalogService",
+            "path": "SalesOrders/$count",
+            "refresh": 1800
+          }
+        }
+      }
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.136.0",
+      "libs": {
+        "sap.fe.templates": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      },
+      "": {
+        "dataSource": "CatalogService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "SalesOrdersList",
+          "target": "SalesOrdersList"
+        },
+        {
+          "pattern": "SalesOrders({key}):?query:",
+          "name": "SalesOrdersDetails",
+          "target": "SalesOrdersDetails"
+        }
+      ],
+      "targets": {
+        "SalesOrdersList": {
+          "type": "Component",
+          "id": "SalesOrdersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "SalesOrders",
+              "liveMode": true,
+              "navigation": {
+                "SalesOrders": {
+                  "detail": {
+                    "route": "SalesOrdersDetails"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SalesOrdersDetails": {
+          "type": "Component",
+          "id": "SalesOrdersDetailsList",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "SalesOrders"
+            }
+          }
+        }
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

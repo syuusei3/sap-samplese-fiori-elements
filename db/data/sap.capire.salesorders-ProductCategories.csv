@@ -1,0 +1,14 @@
+ID;parent_ID;name;descr
+HW;;Hardware;Physical products and devices
+SW;;Software;Software products and licences
+SVC;;Services;Professional and managed services
+HW-SENS;HW;Sensors;Industrial sensors and detectors
+HW-PUMP;HW;Pumps & Hydraulics;Pumps and hydraulic equipment
+HW-CTRL;HW;Controllers;PLCs and industrial controllers
+HW-NETW;HW;Networking;Network and connectivity hardware
+SW-ERP;SW;ERP Modules;ERP add-on licences
+SW-ANAL;SW;Analytics;Analytics and reporting tools
+SW-CLOUD;SW;Cloud Platform;Cloud platform subscriptions
+SVC-CONS;SVC;Consulting;Implementation and advisory services
+SVC-SUPP;SVC;Support;Maintenance and helpdesk services
+SVC-TRAIN;SVC;Training;Training and enablement

@@ -5,42 +5,93 @@ using {
   sap
 } from '@sap/cds/common';
 
-namespace sap.capire.bookshop;
+namespace sap.capire.salesorders;
 
-entity Books : managed {
-  key ID       : Integer;
-      author   : Association to Authors @mandatory;
-      title    : localized String       @mandatory;
-      descr    : localized String;
-      genre    : Association to Genres;
-      stock    : Integer;
-      price    : Price;
-      currency : Currency;
+/**
+ * Sales order header — draft-enabled root entity for the order management UI.
+ */
+entity SalesOrders : managed {
+  key ID          : Integer;
+      orderNo     : String(20)                    @mandatory;
+      orderDate   : Date                          @mandatory;
+      customer    : Association to Customers      @mandatory;
+      salesOrg    : Association to SalesOrgs      @mandatory;
+      status      : String @mandatory enum {
+                      New;
+                      InProgress;
+                      Shipped;
+                      Completed;
+                      Cancelled;
+                    };
+      grossAmount : Decimal(15, 2);
+      currency    : Currency;
+      note        : String(1000);
+      items       : Composition of many SalesOrderItems
+                      on items.parent = $self;
 }
 
-entity Authors : managed {
-  key ID           : Integer;
-      name         : String @mandatory;
-      dateOfBirth  : Date;
-      dateOfDeath  : Date;
-      placeOfBirth : String;
-      placeOfDeath : String;
-      books        : Association to many Books
-                       on books.author = $self;
+/**
+ * Sales order item — child of SalesOrders.
+ */
+entity SalesOrderItems : cuid, managed {
+  parent    : Association to SalesOrders;
+  position  : Integer                       @mandatory;
+  product   : Association to Products       @mandatory;
+  quantity  : Integer                       @mandatory;
+  unitPrice : Decimal(13, 2);
+  netAmount : Decimal(15, 2);
+  currency  : Currency;
 }
 
-/** Hierarchically organized Code List for Genres */
-entity Genres : cuid, sap.common.CodeList {
-  parent   : Association to Genres;
-  children : Composition of many Genres
+/**
+ * Customers / business partners.
+ */
+entity Customers : managed {
+  key ID            : Integer;
+      name          : String(120)                 @mandatory;
+      country       : String(3); // ISO 3166-1 alpha-2/3
+      city          : String(80);
+      email         : String(120);
+      customerSince : Date;
+      segment       : String enum {
+                        Strategic;
+                        Enterprise;
+                        Mid;
+                        Small;
+                      };
+      orders        : Association to many SalesOrders
+                        on orders.customer = $self;
+}
+
+/**
+ * Products that can be sold.
+ */
+entity Products : managed {
+  key ID          : Integer;
+      name        : localized String(120)         @mandatory;
+      description : localized String(2000);
+      category    : Association to ProductCategories;
+      price       : Decimal(13, 2);
+      currency    : Currency;
+      stock       : Integer;
+      supplier    : String(120);
+}
+
+/** Hierarchically organized code list for product categories (e.g. Hardware > Sensors). */
+entity ProductCategories : cuid, sap.common.CodeList {
+  parent   : Association to ProductCategories;
+  children : Composition of many ProductCategories
                on children.parent = $self;
 }
 
-type Price : Decimal(9, 2);
+/** Sales organization code list (e.g. JP01, US01). */
+entity SalesOrgs : sap.common.CodeList {
+  key code    : String(10);
+      country : String(3);
+}
 
 
 // --------------------------------------------------------------------------------
-// Temporary workaround for this situation:
-// - Fiori apps in bookstore annotate Books with @fiori.draft.enabled.
-// - Because of that .csv data has to eagerly fill in ID_texts column.
-annotate Books with @fiori.draft.enabled;
+// Draft enablement for the SalesOrders root.
+// SalesOrderItems is reached via composition and inherits draft handling.
+annotate SalesOrders with @fiori.draft.enabled;

@@ -1,0 +1,26 @@
+ID;name;description;category_ID;price;currency_code;stock;supplier
+2001;Industrial Sensor X1;High-precision proximity sensor for harsh environments.;HW-SENS;249.00;USD;320;Acme Sensors
+2002;Industrial Sensor X2 Pro;Extended-range version of the X1 with IO-Link support.;HW-SENS;419.00;USD;120;Acme Sensors
+2003;Temperature Probe T-500;-50 to 500 °C industrial temperature probe.;HW-SENS;179.00;EUR;58;Bayern Sensors
+2004;Pressure Sensor P-12;12-bar industrial pressure sensor.;HW-SENS;215.00;EUR;42;Bayern Sensors
+2005;Hydraulic Pump P200;Variable-displacement hydraulic pump, 200 bar.;HW-PUMP;3450.00;EUR;15;Müller Maschinenbau
+2006;Hydraulic Pump P400;Heavy-duty 400-bar pump for marine applications.;HW-PUMP;6890.00;EUR;6;Müller Maschinenbau
+2007;PLC Controller C-7;Compact programmable logic controller, 16 I/O.;HW-CTRL;1290.00;USD;48;Acme Controls
+2008;PLC Controller C-15;Modular PLC, scalable to 256 I/O.;HW-CTRL;3850.00;USD;22;Acme Controls
+2009;Industrial Switch GW-8;8-port managed industrial Ethernet switch.;HW-NETW;845.00;USD;90;NorthStar Networks
+2010;Industrial Router IR-2;Cellular router for industrial gateways.;HW-NETW;1180.00;USD;35;NorthStar Networks
+2011;ERP Finance Module;User licence for the Finance ERP add-on.;SW-ERP;1500.00;EUR;9999;In-house
+2012;ERP Logistics Module;User licence for the Logistics ERP add-on.;SW-ERP;1750.00;EUR;9999;In-house
+2013;ERP HR Module;User licence for the HR ERP add-on.;SW-ERP;1350.00;EUR;9999;In-house
+2014;Analytics Studio;Self-service BI and reporting suite (per user).;SW-ANAL;980.00;USD;9999;In-house
+2015;Analytics Cloud Predictive;Predictive analytics add-on (per user).;SW-ANAL;1450.00;USD;9999;In-house
+2016;Cloud Platform Starter;1 GB / month managed cloud platform.;SW-CLOUD;49.00;USD;9999;In-house
+2017;Cloud Platform Professional;10 GB / month managed cloud platform.;SW-CLOUD;299.00;USD;9999;In-house
+2018;Implementation Consulting (Day);One day of senior implementation consulting.;SVC-CONS;1850.00;EUR;9999;Internal
+2019;Solution Architecture (Day);One day of solution architecture consulting.;SVC-CONS;2400.00;EUR;9999;Internal
+2020;Standard Support Plan;Annual standard support contract (per user).;SVC-SUPP;480.00;USD;9999;Internal
+2021;Premium Support Plan;Annual premium support with 24x7 hotline.;SVC-SUPP;1280.00;USD;9999;Internal
+2022;Onboarding Training;3-day classroom onboarding training (per seat).;SVC-TRAIN;1500.00;EUR;9999;Internal
+2023;Advanced Developer Training;5-day advanced developer training (per seat).;SVC-TRAIN;2900.00;EUR;9999;Internal
+2024;Conveyor Belt Motor M-3;3 kW industrial motor for conveyor belts.;HW-PUMP;1180.00;JPY;75;Yamamoto Robotics
+2025;High-Bay Storage Sensor;Specialised distance sensor for high-bay warehouses.;HW-SENS;520.00;JPY;180;Yamamoto Robotics

@@ -5,26 +5,26 @@
         "config": {
           "groups": [
             {
-              "id": "Bookshop",
-              "title": "Bookshop",
+              "id": "SalesOrders",
+              "title": "Sales Orders",
               "isPreset": true,
               "isVisible": true,
               "isGroupLocked": false,
               "tiles": [
                 {
-                  "id": "BrowseBooks",
+                  "id": "BrowseOrders",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Browse Books",
-                    "targetURL": "#Books-display"
+                    "title": "Browse Sales Orders",
+                    "targetURL": "#SalesOrder-display"
                   }
                 },
                 {
-                  "id": "BrowseGenres",
+                  "id": "BrowseProductCategories",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Browse Genres",
-                    "targetURL": "#Genres-display"
+                    "title": "Product Categories",
+                    "targetURL": "#ProductCategory-display"
                   }
                 }
               ]
@@ -37,19 +37,19 @@
               "isGroupLocked": false,
               "tiles": [
                 {
-                  "id": "ManageBooks",
+                  "id": "ManageOrders",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Manage Books",
-                    "targetURL": "#Books-manage"
+                    "title": "Manage Sales Orders",
+                    "targetURL": "#SalesOrder-manage"
                   }
                 },
                 {
-                  "id": "ManageAuthors",
+                  "id": "ManageCustomers",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Manage Authors",
-                    "targetURL": "#Authors-manage"
+                    "title": "Manage Customers",
+                    "targetURL": "#Customer-manage"
                   }
                 }
               ]
@@ -67,16 +67,13 @@
       "adapter": {
         "config": {
           "inbounds": {
-            "BrowseBooks": {
-              "semanticObject": "Books",
+            "BrowseOrders": {
+              "semanticObject": "SalesOrder",
               "action": "display",
-              "title": "Browse Books",
+              "title": "Browse Sales Orders",
               "signature": {
                 "parameters": {
-                  "Books.ID": {
-                    "renameTo": "ID"
-                  },
-                  "Authors.books.ID": {
+                  "SalesOrders.ID": {
                     "renameTo": "ID"
                   }
                 },
@@ -84,17 +81,17 @@
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=cap-sample.browse",
-                "url": "/browse/webapp"
+                "additionalInformation": "SAPUI5.Component=cap-sample.browse-orders",
+                "url": "/browse-orders/webapp"
               }
             },
-            "ManageAuthors": {
-              "semanticObject": "Authors",
+            "ManageCustomers": {
+              "semanticObject": "Customer",
               "action": "manage",
-              "title": "Manage Authors",
+              "title": "Manage Customers",
               "signature": {
                 "parameters": {
-                  "Books.author.ID": {
+                  "SalesOrders.customer.ID": {
                     "renameTo": "ID"
                   }
                 },
@@ -102,17 +99,17 @@
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=cap-sample.admin-authors",
-                "url": "/admin-authors/webapp"
+                "additionalInformation": "SAPUI5.Component=cap-sample.manage-customers",
+                "url": "/manage-customers/webapp"
               }
             },
-            "BrowseGenres": {
-              "semanticObject": "Genres",
+            "BrowseProductCategories": {
+              "semanticObject": "ProductCategory",
               "action": "display",
-              "title": "Browse Genres",
+              "title": "Browse Product Categories",
               "signature": {
                 "parameters": {
-                  "Genre.ID": {
+                  "ProductCategory.ID": {
                     "renameTo": "ID"
                   }
                 },
@@ -120,22 +117,22 @@
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=cap-sample.genres",
-                "url": "/genres/webapp"
+                "additionalInformation": "SAPUI5.Component=cap-sample.product-categories",
+                "url": "/product-categories/webapp"
               }
             },
-            "ManageBooks": {
-              "semanticObject": "Books",
+            "ManageOrders": {
+              "semanticObject": "SalesOrder",
               "action": "manage",
-              "title": "Manage Books",
+              "title": "Manage Sales Orders",
               "signature": {
                 "parameters": {},
                 "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=cap-sample.admin-books",
-                "url": "/admin-books/webapp"
+                "additionalInformation": "SAPUI5.Component=cap-sample.manage-orders",
+                "url": "/manage-orders/webapp"
               }
             }
           }

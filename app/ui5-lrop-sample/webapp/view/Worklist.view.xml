@@ -1,0 +1,135 @@
+<mvc:View
+	controllerName="ui5lropsample.controller.Worklist"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+
+	<f:DynamicPage id="page" headerExpanded="true" toggleHeaderOnTitleClick="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>worklistTitle}" level="H2"/>
+				</f:heading>
+				<f:expandedContent>
+					<Label text="{i18n>appDescription}"/>
+				</f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<HBox alignItems="End" wrap="Wrap" renderType="Bare">
+					<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+						<Label text="{i18n>searchPlaceholder}" labelFor="searchField"/>
+						<SearchField
+							id="searchField"
+							width="20rem"
+							placeholder="{i18n>searchPlaceholder}"
+							liveChange=".onSearch"/>
+					</VBox>
+					<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+						<Label text="{i18n>filterCustomer}" labelFor="customerFilter"/>
+						<ComboBox
+							id="customerFilter"
+							width="14rem"
+							items="{
+								path: '/Customers',
+								parameters: { $orderby: 'name' }
+							}"
+							selectionChange=".onFilterChange">
+							<core:Item key="{ID}" text="{name}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom">
+						<Label text="{i18n>filterStatus}" labelFor="statusFilter"/>
+						<ComboBox
+							id="statusFilter"
+							width="14rem"
+							selectionChange=".onFilterChange">
+							<core:Item key="" text="{i18n>filterAll}"/>
+							<core:Item key="New" text="New"/>
+							<core:Item key="InProgress" text="In Progress"/>
+							<core:Item key="Shipped" text="Shipped"/>
+							<core:Item key="Completed" text="Completed"/>
+							<core:Item key="Cancelled" text="Cancelled"/>
+						</ComboBox>
+					</VBox>
+				</HBox>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<f:content>
+			<Table
+				id="ordersTable"
+				inset="false"
+				growing="true"
+				growingThreshold="20"
+				items="{
+					path: '/SalesOrders',
+					parameters: {
+						$expand: 'customer,salesOrg,currency',
+						$count: true
+					}
+				}"
+				mode="SingleSelectMaster"
+				itemPress=".onItemPress">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title id="tableHeader" text="{i18n>worklistTitle}" level="H2"/>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>columnOrderNo}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>columnOrderDate}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>columnCustomer}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>columnStatus}"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="{i18n>columnGrossAmount}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						core:require="{
+							Currency: 'sap/ui/model/odata/type/Currency',
+							DateType: 'sap/ui/model/odata/type/Date'
+						}">
+						<cells>
+							<ObjectIdentifier title="{orderNo}"/>
+							<Text text="{
+								path: 'orderDate',
+								type: 'sap.ui.model.odata.type.Date',
+								formatOptions: { style: 'medium' }
+							}"/>
+							<Text text="{customer/name}"/>
+							<ObjectStatus
+								text="{status}"
+								state="{= ${status} === 'Cancelled' ? 'Error' : (${status} === 'New' || ${status} === 'InProgress' ? 'Warning' : 'Success') }"/>
+							<ObjectNumber
+								number="{
+									parts: [
+										{ path: 'grossAmount' },
+										{ path: 'currency_code' }
+									],
+									type: 'sap.ui.model.odata.type.Currency',
+									formatOptions: { showMeasure: false }
+								}"
+								unit="{currency_code}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

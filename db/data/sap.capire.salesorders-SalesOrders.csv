@@ -1,0 +1,26 @@
+ID;orderNo;orderDate;customer_ID;salesOrg_code;status;grossAmount;currency_code;note
+5001;SO-2025-0001;2025-06-12;1001;US01;Completed;7470.00;USD;Annual contract delivery #1.
+5002;SO-2025-0002;2025-07-04;1002;JP01;Completed;258480.00;JPY;Order via Tokyo office.
+5003;SO-2025-0003;2025-07-25;1003;DE01;Shipped;13780.00;EUR;Awaiting customs clearance.
+5004;SO-2025-0004;2025-08-08;1004;FR01;Completed;5430.00;EUR;Standard quarterly order.
+5005;SO-2025-0005;2025-09-01;1005;UK01;Shipped;6890.00;GBP;Express shipping requested.
+5006;SO-2025-0006;2025-09-15;1006;GLOB;Completed;3060.00;USD;Pilot order for new region.
+5007;SO-2025-0007;2025-10-03;1007;JP01;Completed;176400.00;JPY;Robotics line refresh.
+5008;SO-2025-0008;2025-10-22;1008;US01;Shipped;5180.00;USD;Logistics center expansion.
+5009;SO-2025-0009;2025-11-04;1009;DE01;InProgress;28950.00;EUR;Munich plant retrofit.
+5010;SO-2025-0010;2025-11-21;1010;FR01;InProgress;4350.00;EUR;Cloud platform pilot.
+5011;SO-2025-0011;2025-12-09;1011;UK01;InProgress;3680.00;GBP;Smart devices expansion.
+5012;SO-2025-0012;2025-12-19;1012;JP01;Completed;14400.00;JPY;Year-end consumables.
+5013;SO-2026-0001;2026-01-14;1013;US01;Shipped;14750.00;USD;Texas hub upgrade.
+5014;SO-2026-0002;2026-01-29;1014;DE01;Cancelled;0.00;EUR;Customer cancelled before ship.
+5015;SO-2026-0003;2026-02-11;1015;FR01;Shipped;3150.00;EUR;Annual support renewal.
+5016;SO-2026-0004;2026-02-25;1016;UK01;InProgress;3850.00;GBP;Edinburgh site upgrade.
+5017;SO-2026-0005;2026-03-10;1017;JP01;InProgress;430800.00;JPY;Kyoto precision line.
+5018;SO-2026-0006;2026-03-22;1018;US01;New;19250.00;USD;Boston robotics PoC.
+5019;SO-2026-0007;2026-04-05;1019;DE01;New;598.00;USD;Cloud Platform PoC.
+5020;SO-2026-0008;2026-04-18;1020;FR01;New;2360.00;EUR;Maritime sensors PoC.
+5021;SO-2026-0009;2026-04-30;1001;US01;InProgress;13800.00;USD;Acme expansion phase 2.
+5022;SO-2026-0010;2026-05-08;1009;DE01;Cancelled;0.00;EUR;Replaced by SO-2026-0011.
+5023;SO-2026-0011;2026-05-12;1009;DE01;New;31200.00;EUR;Bayern Sensors top-up order.
+5024;SO-2026-0012;2026-05-18;1002;JP01;New;345000.00;JPY;Mitsui follow-up.
+5025;SO-2026-0013;2026-05-26;1006;GLOB;Shipped;1450.00;USD;Singapore analytics rollout.

@@ -1,0 +1,21 @@
+ID;name;country;city;email;customerSince;segment
+1001;Acme Industrial Corp;US;Chicago;procurement@acme.example.com;2015-03-12;Strategic
+1002;Mitsui Heavy Trading;JP;Tokyo;orders@mitsui-ht.example.jp;2012-07-20;Strategic
+1003;Müller Maschinenbau GmbH;DE;Stuttgart;einkauf@mueller-mb.example.de;2018-01-15;Enterprise
+1004;Renault Composants SA;FR;Lyon;achats@renault-c.example.fr;2014-11-04;Enterprise
+1005;Britannia Engineering Ltd;GB;Manchester;orders@britannia-eng.example.co.uk;2016-06-22;Enterprise
+1006;Singapore Tech Pte Ltd;SG;Singapore;sales@sgtech.example.sg;2020-09-09;Mid
+1007;Yamamoto Robotics KK;JP;Osaka;sales@yamamoto-robotics.example.jp;2019-04-17;Mid
+1008;NorthStar Logistics Inc;US;Seattle;buyer@northstar.example.com;2017-08-30;Mid
+1009;Bayern Sensors AG;DE;Munich;einkauf@bayern-sensors.example.de;2013-12-01;Strategic
+1010;ParisTech Solutions;FR;Paris;contact@paristech.example.fr;2021-02-14;Mid
+1011;London Smart Devices;GB;London;procurement@londonsmart.example.co.uk;2019-10-05;Mid
+1012;Hokkaido Foods Co;JP;Sapporo;sales@hokkaido-foods.example.jp;2022-03-25;Small
+1013;Texas Energy Systems;US;Houston;orders@txenergy.example.com;2016-05-18;Enterprise
+1014;Hamburg Logistics GmbH;DE;Hamburg;buyer@hamburg-log.example.de;2018-08-19;Mid
+1015;Lyonnaise Industries;FR;Lyon;achats@lyonnaise-ind.example.fr;2020-12-11;Small
+1016;Edinburgh Components Ltd;GB;Edinburgh;sales@edinburgh-c.example.co.uk;2017-04-02;Small
+1017;Kyoto Precision Inc;JP;Kyoto;orders@kyoto-precision.example.jp;2014-09-28;Enterprise
+1018;Boston Robotics LLC;US;Boston;procurement@bostonrob.example.com;2021-11-30;Mid
+1019;Berlin Cloud Services;DE;Berlin;billing@berlin-cloud.example.de;2022-06-08;Small
+1020;Marseille Maritime;FR;Marseille;achats@marseille-mar.example.fr;2015-10-21;Mid

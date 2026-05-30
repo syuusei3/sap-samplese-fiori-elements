@@ -1,0 +1,136 @@
+<mvc:View
+	controllerName="ui5customsample.controller.Worklist"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+
+	<f:DynamicPage id="page" headerExpanded="true" toggleHeaderOnTitleClick="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>worklistTitle}" level="H2"/>
+				</f:heading>
+				<f:expandedContent>
+					<Label text="{i18n>appDescription}"/>
+				</f:expandedContent>
+				<f:actions>
+					<Button text="{i18n>clearFilters}" icon="sap-icon://clear-filter" press=".onClearFilters"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<VBox>
+					<HBox alignItems="End" wrap="Wrap" renderType="Bare">
+						<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+							<Label text="{i18n>searchPlaceholder}" labelFor="searchField"/>
+							<SearchField
+								id="searchField"
+								width="18rem"
+								placeholder="{i18n>searchPlaceholder}"
+								liveChange=".onSearch"/>
+						</VBox>
+						<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+							<Label text="{i18n>filterStatus}" labelFor="statusFilter"/>
+							<MultiComboBox
+								id="statusFilter"
+								width="16rem"
+								selectionChange=".onStatusChange">
+								<core:Item key="New" text="New"/>
+								<core:Item key="InProgress" text="In Progress"/>
+								<core:Item key="Shipped" text="Shipped"/>
+								<core:Item key="Completed" text="Completed"/>
+								<core:Item key="Cancelled" text="Cancelled"/>
+							</MultiComboBox>
+						</VBox>
+						<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+							<Label text="{i18n>filterCustomer}" labelFor="customerFilter"/>
+							<MultiComboBox
+								id="customerFilter"
+								width="18rem"
+								items="{ path: '/Customers', parameters: { $orderby: 'name' } }"
+								selectionChange=".onCustomerChange">
+								<core:Item key="{ID}" text="{name}"/>
+							</MultiComboBox>
+						</VBox>
+						<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" width="22rem">
+							<Label text="{i18n>filterAmount}" labelFor="amountSlider"/>
+							<RangeSlider
+								id="amountSlider"
+								min="0"
+								max="100000"
+								step="1000"
+								value="0"
+								value2="100000"
+								showAdvancedTooltip="true"
+								change=".onAmountChange"/>
+						</VBox>
+						<VBox class="sapUiSmallMarginBottom">
+							<Label text="{i18n>filterOpen}" labelFor="openSwitch"/>
+							<Switch id="openSwitch" change=".onOpenSwitch"/>
+						</VBox>
+					</HBox>
+					<Tokenizer
+						class="sapUiSmallMarginTop"
+						width="100%"
+						editable="true"
+						tokens="{state>/tokens}"
+						tokenDelete=".onTokenDelete">
+						<Token key="{state>key}" text="{state>text}"/>
+					</Tokenizer>
+				</VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<f:content>
+			<Table
+				id="ordersTable"
+				inset="false"
+				growing="true"
+				growingThreshold="20"
+				items="{
+					path: '/SalesOrders',
+					parameters: {
+						$expand: 'customer,salesOrg,currency',
+						$count: true
+					}
+				}"
+				mode="SingleSelectMaster"
+				itemPress=".onItemPress">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title text="{i18n>worklistTitle}" level="H2"/>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column><Text text="{i18n>columnOrderNo}"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>columnCustomer}"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>columnSalesOrg}"/></Column>
+					<Column><Text text="{i18n>columnStatus}"/></Column>
+					<Column hAlign="End"><Text text="{i18n>columnAmount}"/></Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						core:require="{ Currency: 'sap/ui/model/odata/type/Currency' }">
+						<cells>
+							<ObjectIdentifier title="{orderNo}"/>
+							<Text text="{customer/name}"/>
+							<Text text="{salesOrg/name}"/>
+							<ObjectStatus
+								text="{status}"
+								state="{= ${status} === 'Cancelled' ? 'Error' : (${status} === 'New' || ${status} === 'InProgress') ? 'Warning' : 'Success' }"/>
+							<ObjectNumber
+								number="{ parts:[{path:'grossAmount'},{path:'currency_code'}], type:'sap.ui.model.odata.type.Currency', formatOptions:{showMeasure:false} }"
+								unit="{currency_code}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

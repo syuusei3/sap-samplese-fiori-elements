@@ -1,0 +1,129 @@
+<mvc:View
+	controllerName="ui5objectpagesample.controller.ObjectPage"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:uxap="sap.uxap"
+	xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+
+	<Page
+		id="objectPage"
+		showHeader="true"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		title="{i18n>objectHeaderType}: {orderNo}">
+		<content>
+			<uxap:ObjectPageLayout
+				id="ObjectPageLayout"
+				showTitleInHeaderContent="true"
+				upperCaseAnchorBar="false">
+				<uxap:headerTitle>
+					<uxap:ObjectPageDynamicHeaderTitle>
+						<uxap:expandedHeading>
+							<Title text="{orderNo}" wrapping="true" level="H2"/>
+						</uxap:expandedHeading>
+						<uxap:snappedHeading>
+							<Title text="{orderNo}" wrapping="true" level="H2"/>
+						</uxap:snappedHeading>
+						<uxap:expandedContent>
+							<Text text="{customer/name}"/>
+						</uxap:expandedContent>
+					</uxap:ObjectPageDynamicHeaderTitle>
+				</uxap:headerTitle>
+
+				<uxap:headerContent>
+					<layout:VerticalLayout>
+						<ObjectAttribute title="{i18n>fieldCustomer}" text="{customer/name}"/>
+						<ObjectAttribute title="{i18n>fieldSalesOrg}" text="{salesOrg/name}"/>
+					</layout:VerticalLayout>
+					<layout:VerticalLayout>
+						<ObjectStatus
+							title="{i18n>fieldStatus}"
+							text="{status}"
+							state="{= ${status} === 'Cancelled' ? 'Error' : (${status} === 'New' || ${status} === 'InProgress') ? 'Warning' : 'Success' }"/>
+						<ObjectNumber
+							core:require="{ Currency: 'sap/ui/model/odata/type/Currency' }"
+							number="{ parts:[{path:'grossAmount'},{path:'currency_code'}], type:'sap.ui.model.odata.type.Currency', formatOptions:{showMeasure:false} }"
+							unit="{currency_code}"
+							emphasized="true"/>
+					</layout:VerticalLayout>
+				</uxap:headerContent>
+
+				<uxap:sections>
+					<uxap:ObjectPageSection title="{i18n>sectionGeneral}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection>
+								<uxap:blocks>
+									<form:Form editable="false">
+										<form:title><core:Title text=""/></form:title>
+										<form:layout>
+											<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+										</form:layout>
+										<form:formContainers>
+											<form:FormContainer>
+												<form:formElements>
+													<form:FormElement label="{i18n>fieldOrderNo}">
+														<form:fields><Text text="{orderNo}"/></form:fields>
+													</form:FormElement>
+													<form:FormElement label="{i18n>fieldOrderDate}">
+														<form:fields><Text text="{orderDate}"/></form:fields>
+													</form:FormElement>
+													<form:FormElement label="{i18n>fieldCustomer}">
+														<form:fields><Text text="{customer/name}"/></form:fields>
+													</form:FormElement>
+													<form:FormElement label="{i18n>fieldSalesOrg}">
+														<form:fields><Text text="{salesOrg/name}"/></form:fields>
+													</form:FormElement>
+													<form:FormElement label="{i18n>fieldStatus}">
+														<form:fields><Text text="{status}"/></form:fields>
+													</form:FormElement>
+												</form:formElements>
+											</form:FormContainer>
+										</form:formContainers>
+									</form:Form>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+
+					<uxap:ObjectPageSection title="{i18n>sectionItems}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection>
+								<uxap:blocks>
+									<Table id="itemsTable" items="{items}">
+										<columns>
+											<Column><Text text="{i18n>colPosition}"/></Column>
+											<Column><Text text="{i18n>colProduct}"/></Column>
+											<Column hAlign="End"><Text text="{i18n>colQuantity}"/></Column>
+											<Column hAlign="End"><Text text="{i18n>colUnitPrice}"/></Column>
+											<Column hAlign="End"><Text text="{i18n>colNetAmount}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Text text="{position}"/>
+													<Text text="{product/name}"/>
+													<Text text="{quantity}"/>
+													<ObjectNumber
+														core:require="{ Currency: 'sap/ui/model/odata/type/Currency' }"
+														number="{ parts:[{path:'unitPrice'},{path:'currency_code'}], type:'sap.ui.model.odata.type.Currency', formatOptions:{showMeasure:false} }"
+														unit="{currency_code}"/>
+													<ObjectNumber
+														core:require="{ Currency: 'sap/ui/model/odata/type/Currency' }"
+														number="{ parts:[{path:'netAmount'},{path:'currency_code'}], type:'sap.ui.model.odata.type.Currency', formatOptions:{showMeasure:false} }"
+														unit="{currency_code}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,123 @@
+{
+  "_version": "1.85.0",
+  "sap.app": {
+    "id": "fecustomsample",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": { "version": "0.0.1" },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:fpm",
+      "version": "1.25.0",
+      "toolsId": "custom-sample-0001"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog-custom/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": { "icon": "", "favIcon": "" },
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.fe.core": {}
+      }
+    },
+    "contentDensities": { "compact": true, "cozy": true },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": { "bundleName": "fecustomsample.i18n.i18n" }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": { "css": [] },
+    "rootView": {
+      "viewName": "sap.fe.core.rootView.NavContainer",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.fe.core.AppComponent.router",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "OrdersCustomList",
+          "target": "OrdersCustomList"
+        },
+        {
+          "pattern": "SalesOrders({key}):?query:",
+          "name": "SalesOrdersObjectPage",
+          "target": "SalesOrdersObjectPage"
+        }
+      ],
+      "targets": {
+        "OrdersCustomList": {
+          "type": "Component",
+          "id": "OrdersCustomList",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "viewName": "fecustomsample.ext.view.OrdersCustomPage",
+              "contextPath": "/SalesOrders",
+              "navigation": {
+                "SalesOrders": { "detail": { "route": "SalesOrdersObjectPage" } }
+              }
+            }
+          }
+        },
+        "SalesOrdersObjectPage": {
+          "type": "Component",
+          "id": "SalesOrdersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/SalesOrders"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": { "enableLazyLoading": true }
+  }
+}
