@@ -1,0 +1,178 @@
+_schema-version: 3.3.0
+ID: cap-sample
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: cap-sample-srv
+  type: nodejs
+  path: gen/srv
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: cap-sample
+  type: approuter.nodejs
+  path: app/router
+  requires:
+  - name: srv-api
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: srv-api
+      url: ~{srv-url}
+  - name: cap-sample-html5-runtime
+  - name: cap-sample-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  provides:
+  - name: app-api
+    properties:
+      app-protocol: ${protocol}
+      app-uri: ${default-uri}
+  parameters:
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+- name: cap-sample-app-deployer
+  type: com.sap.application.content
+  path: gen
+  requires:
+  - name: srv-api
+  - name: cap-sample-html5-repo-host
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+      content-target: true
+  build-parameters:
+    build-result: app/
+    requires:
+    - artifacts:
+      - admin-authors.zip
+      name: capsampleadminauthors
+      target-path: app/
+    - artifacts:
+      - admin-books.zip
+      name: capsampleadminbooks
+      target-path: app/
+    - artifacts:
+      - browse.zip
+      name: capsamplebrowse
+      target-path: app/
+    - artifacts:
+      - genres.zip
+      name: capsamplegenres
+      target-path: app/
+    - artifacts:
+      - feoverviewsample.zip
+      name: feoverviewsample
+      target-path: app/
+    - artifacts:
+      - feworklistsample.zip
+      name: feworklistsample
+      target-path: app/
+- name: capsampleadminauthors
+  type: html5
+  path: app/admin-authors
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm ci
+    - npm run build
+    supported-platforms: []
+- name: capsampleadminbooks
+  type: html5
+  path: app/admin-books
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm ci
+    - npm run build
+    supported-platforms: []
+- name: capsamplebrowse
+  type: html5
+  path: app/browse
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm ci
+    - npm run build
+    supported-platforms: []
+- name: capsamplegenres
+  type: html5
+  path: app/genres
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm ci
+    - npm run build
+    supported-platforms: []
+- name: feoverviewsample
+  type: html5
+  path: app/fe-overview-sample
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: feworklistsample
+  type: html5
+  path: app/fe-worklist-sample
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: cap-sample-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: cap-sample-html5-runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: cap-sample-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: cap-sample-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
